@@ -1,13 +1,45 @@
-let traveller = new Walker( 400,300,10,"yellow");
-let traveller2=new Walker(300,250,10,"purple")
 function setup() {
   createCanvas(400, 400);
-  background(0);
-  frameRate(30);
-  traveller.showUp();
-  traveller2.showUp();
+  background(245, 93, 126);
+  let step = 90;
+  let seedX=200;
+  let seedY=350;
+  //call the function to grow tree 
+  grow(seedX,seedY,step);
 }
-function draw() {
-  traveller.do1Step();
-  traveller2.do1Step();
+
+//function that takes a seed and grows Y-shape
+function grow(seedX, seedY, step) {
+  // 1. plant seed
+  // 2. grow (step)
+  line(seedX, seedY, seedX, seedY - step);
+  // 2.1 find where are  we coming from
+  let whereAreWeComingFromX = seedX;
+  let whereAreWeComingFromY = seedY - step;
+
+  // 3. split left
+  // 3.1 find where to go left
+  let whereToGoLeftX = seedX - step;
+  let whereToGoLeftY = seedY - step - step;
+
+  //3.2 draw Branch
+  line(
+    whereAreWeComingFromX,
+    whereAreWeComingFromY,
+    whereToGoLeftX,
+    whereToGoLeftY
+  );
+
+  // 4. split right
+  // 4.1 find where to go right
+  let whereToGoRightX = seedX + step;
+  let whereToGoRightY = seedY - step - step;
+
+  //4.2 draw Branch
+  line(
+    whereAreWeComingFromX,
+    whereAreWeComingFromY,
+    whereToGoRightX,
+    whereToGoRightY
+  );
 }
