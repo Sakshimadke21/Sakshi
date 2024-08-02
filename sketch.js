@@ -1,45 +1,61 @@
 function setup() {
-  createCanvas(400, 400);
-  background(245, 93, 126);
-  let step = 90;
-  let seedX=200;
-  let seedY=350;
-  //call the function to grow tree 
-  grow(seedX,seedY,step);
+  createCanvas(400, 400); // Set the size of the canvas
+  angleMode(DEGREES);    // Use degrees for angle measurements
 }
 
-//function that takes a seed and grows Y-shape
-function grow(seedX, seedY, step) {
-  // 1. plant seed
-  // 2. grow (step)
-  line(seedX, seedY, seedX, seedY - step);
-  // 2.1 find where are  we coming from
-  let whereAreWeComingFromX = seedX;
-  let whereAreWeComingFromY = seedY - step;
-
-  // 3. split left
-  // 3.1 find where to go left
-  let whereToGoLeftX = seedX - step;
-  let whereToGoLeftY = seedY - step - step;
-
-  //3.2 draw Branch
-  line(
-    whereAreWeComingFromX,
-    whereAreWeComingFromY,
-    whereToGoLeftX,
-    whereToGoLeftY
-  );
-
-  // 4. split right
-  // 4.1 find where to go right
-  let whereToGoRightX = seedX + step;
-  let whereToGoRightY = seedY - step - step;
-
-  //4.2 draw Branch
-  line(
-    whereAreWeComingFromX,
-    whereAreWeComingFromY,
-    whereToGoRightX,
-    whereToGoRightY
-  );
+function draw() {
+  background(
+  'black'); // Set the background color to white
+  
+  translate(width / 2, height / 2); // Move origin to center of canvas
+  
+  // Draw clock face
+  strokeWeight(8);
+  noFill();
+  stroke(0);
+  
+  // Draw numbers on the clock face
+  textSize(36);
+  textAlign(CENTER, CENTER);
+  fill("white");
+  for (let i = 1; i <= 12; i++) {
+    let angle = map(i, 0, 12, 0, 360) - 90;
+    let x = cos(angle) * 120; // Radius for the numbers
+    let y = sin(angle) * 120;
+    text(i, x, y);
+  }
+  
+  // Get the current time
+  let h = hour();
+  let m = minute();
+  let s = second();
+  
+  // Draw hour hand
+  push();
+  rotate(map(h % 12, 0, 12, 0, 360) + map(m, 0, 60, 0, 30) - 90); // Rotate hour hand based on current time
+  strokeWeight(8);
+  stroke("gray");
+  line(0, 0, 0, -50); // Draw hour hand
+  pop();
+  
+  // Draw minute hand
+  push();
+  rotate(map(m, 0, 60, 0, 360) - 90); // Rotate minute hand based on current time
+  strokeWeight(6);
+  stroke("gray");
+  line(0, 0, 0, -70); // Draw minute hand
+  pop();
+  
+  // Draw second hand
+  push();
+  rotate(map(s, 0, 60, 0, 360) - 90); // Rotate second hand based on current time
+  strokeWeight(4);
+  stroke(255, 0, 0); // Red color for second hand
+  line(0, 0, 0, -90); // Draw second hand
+  pop();
+  
+  // Draw clock center
+  strokeWeight(8);
+  stroke(0);
+  point(0, 0); // Draw center point of the clock
 }
