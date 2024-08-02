@@ -1,25 +1,14 @@
 function setup() {
-  createCanvas(700, 480);
-
-  
-  //R,G,B values
-  background(225,204,0);
-  
-  //takea big brush
-  strokeWeight(10);
-  
-
-
+  createCanvas(500, 500);
+  background(209, 154, 245);
 }
 
-
 function draw() {
-  
-  let posY=mouseY
-  let posX=mouseX
-  point(posX,posY)
-  fill(posX,20,30,20,28)
-  stroke(10,12,50,20,60)
-  triangle(mouseX,mouseY,55,80,20,10)
-fill(mouseX,mouseY,30,80,20,10)
+  // Check if the mouse is pressed
+  if (mouseIsPressed) {
+    // Draw a circle at the mouse position
+    fill(126, 10, 201)
+    noStroke(); // No outline
+    ellipse(mouseX, mouseY, 10, 10); // Circle with diameter 20
+  }
 }
